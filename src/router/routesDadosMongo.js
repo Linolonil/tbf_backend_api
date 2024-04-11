@@ -1,4 +1,4 @@
-const express = require("express");
+import express from 'express'
 const router = express.Router();
 
 import buscaInfoController from '../controllers/buscarInfoController.js';
@@ -6,4 +6,4 @@ import buscaInfoController from '../controllers/buscarInfoController.js';
 router.get("/buscarInfo", buscaInfoController.buscarInfoCriminosos)
 router.get("/buscarInfoKda", buscaInfoController.buscarInfoKda)
 
-module.exports = router;
+export default router;

@@ -1,5 +1,4 @@
-const  mongoKdaResults  = require('../utils/mongoKDAModel');
-const Partida = require("../models/Partidas");
+import  mongoKdaResults  from '../utils/mongoKDAModel.js';
 
 const postPartidas = async (req, res) => {
   try {
@@ -70,7 +69,7 @@ const getPartidas = async (req, res) => {
   }
 };
 
-module.exports = {
+export default {
   postPartidas,
   getPartidas
 };

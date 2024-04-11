@@ -1,4 +1,4 @@
-const express = require("express");
+import express from 'express';
 const router = express.Router();
 
 import buscarItens from '../middlewares/grupo/itens.js';
@@ -12,4 +12,4 @@ router.get("/detalhes-partidas/buscar",buscarItens, buscarPuuid, buscarMatchId, 
 
 router.post("/detalhes-partidas/criar", grupoController.postPartidas);
 
-module.exports = router;
+export default router;

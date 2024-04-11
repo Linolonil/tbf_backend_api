@@ -1,8 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
-const helmet = require('helmet');
-const cors = require("cors");
-const app = express();
+import  helmet from 'helmet';
+import  cors from "cors";
+const  app = express();
+
+import  rotaDeKdaGrupo  from "./router/routesGrupo.js" 
+import  rotaDeKdaIndividual  from "./router/routesIndividual.js"
+import  rotaDadosMongo from "./router/routesDadosMongo.js"
 
 app.use(express.json());
 app.use(cors());
@@ -11,10 +15,6 @@ dotenv.config();
 
 const PORT = process.env.PORT
 
-
-const rotaDeKdaGrupo = require("../router/routesGrupo"); 
-const rotaDeKdaIndividual = require("../router/routesIndividual"); 
-const rotaDadosMongo= require("../router/routesDadosMongo.js"); 
 
 app.use("/grupo", rotaDeKdaGrupo);
 app.use("/dados", rotaDadosMongo);

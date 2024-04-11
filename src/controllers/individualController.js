@@ -1,4 +1,4 @@
-const mongoKdaResults = require('../utils/mongoKDAModel');
+import mongoKdaResults from '../utils/mongoKDAModel.js';
 
 const postPartidas = async (req, res) =>{
     try {

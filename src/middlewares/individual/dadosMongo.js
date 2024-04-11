@@ -1,5 +1,5 @@
-import mongoResults from '../../utils/mongoModel'
-const { ObjectId } = require('mongodb');
+import mongoResults from '../../utils/mongoKDAModel.js'
+import  { ObjectId } from 'mongodb';
 
 
 const buscarItensMongoDB = async (req, res, next) => {

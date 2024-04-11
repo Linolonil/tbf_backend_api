@@ -1,4 +1,4 @@
-import mongoResults from '../../utils/mongoModel';
+import mongoResults from '../../utils/mongoKDAModel.js';
 
 const buscarItensMongoDB = async (req, res, next) => {
  try {

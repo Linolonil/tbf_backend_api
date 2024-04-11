@@ -1,5 +1,5 @@
-import mongoResults from '../utils/mongoModel'
-import mongoResultsKda from '../utils/mongoKDAModel'
+import mongoResults from '../utils/mongoKDAModel.js'
+import mongoResultsKda from '../utils/mongoKDAModel.js'
 
 const buscarInfoCriminosos = async(req, res) =>{
     try {

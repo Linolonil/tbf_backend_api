@@ -1,7 +1,12 @@
 import { MongoClient } from "mongodb";
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 const mongoURL = process.env.MONGO_URL;
 const dbName = process.env.DBNAME;
+const collectionName = process.env.COLLECTIONNAME;
+const collectionKda = process.env.COLLECTIONKDA;
 
 let cachedDb = null;
 
@@ -19,7 +24,7 @@ const connectToDatabase = async () => {
 
 const mongoKdaResults = async () => {
   const db = await connectToDatabase();
-  const collectionResults = db.collection(process.env.COLLECTIONKDA);
+  const collectionResults = db.collection(collectionKda);
 
   console.info("Conectando ao banco de dados...");
   console.info("Banco de dados conectado com sucesso!");
@@ -29,7 +34,7 @@ const mongoKdaResults = async () => {
 
 const mongoResults = async () => {
   const db = await connectToDatabase();
-  const collectionResults = db.collection(process.env.COLLECTIONNAME);
+  const collectionResults = db.collection(collectionName);
 
   console.info("Conectando ao banco de dados...");
   console.info("Banco de dados conectado com sucesso!");
@@ -37,7 +42,4 @@ const mongoResults = async () => {
   return { collection: collectionResults };
 };
 
-export default {
-  mongoKdaResults,
-  mongoResults
-};
+export default { mongoKdaResults, mongoResults };

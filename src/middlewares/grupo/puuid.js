@@ -13,8 +13,9 @@ const encontrarPuuidMiddleware = async (req, res, next) => {
     for (const jogador of jogadores) {
       try {
         const {id, gameName, tagLine } = jogador;
-
-        const riotIdResponse = await axios.get(`https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${API_KEY}`, {
+        const apiUrl = `https://americas.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${gameName}/${tagLine}?api_key=${API_KEY}`;
+        
+        const riotIdResponse = await axios.get(apiUrl, {
           timeout: 5000
         });
 

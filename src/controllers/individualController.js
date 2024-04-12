@@ -1,9 +1,9 @@
-import mongoKdaResults from '../utils/mongoKDAModel.js';
+import  mongoModels  from '../utils/mongoConnection.js';
 
 const postPartidas = async (req, res) =>{
     try {
-        const {collection} = await mongoKdaResults();
         const {id, partidas} = req.body;
+        const { collection } = await mongoModels.mongoKdaResults();
     
         const bulkUpdateOperations = [];
     
@@ -29,7 +29,7 @@ const postPartidas = async (req, res) =>{
           }
           res.status(200).json({ success: true });
     } catch (error) {
-        console.log(error)
+        console.log("ERRO", error)
         res.status(500).json({Error: "Erro ao inserir dados", error})
     }
 

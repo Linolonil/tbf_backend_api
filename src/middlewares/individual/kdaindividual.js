@@ -5,12 +5,12 @@ const API_KEY = process.env.API_KEY;
 const KDA = async (req, res, next) => {
     try {
         const { id, nickName, puuid, matchsId } = req.matchDetails[0];
-
+        
         const userMatches = [];
-
+        
         await Promise.all(matchsId.map(async (item) => {
-
-            const apiUrl = `https://americas.api.riotgames.com/lol/match/v5/matches/${item}?api_key=${API_KEY}`;
+          const apiUrl = `https://americas.api.riotgames.com/lol/match/v5/matches/${item}?api_key=${API_KEY}`;
+          
             
             const response = await axios.get(apiUrl);
 

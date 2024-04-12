@@ -1,9 +1,8 @@
-import mongoResults from '../utils/mongoKDAModel.js'
-import mongoResultsKda from '../utils/mongoKDAModel.js'
+import mongoModel from '../utils/mongoConnection.js'
 
 const buscarInfoCriminosos = async(req, res) =>{
     try {
-        const {collection} = await mongoResults();
+        const {collection} = await mongoModel.mongoResults();
 
         const itens = await(collection.find().toArray());
 
@@ -25,12 +24,12 @@ const buscarInfoCriminosos = async(req, res) =>{
 }
 const buscarInfoKda = async(req, res) =>{
     try {
-        const {collection} = await mongoResultsKda();
+        const {collection} = await mongoModel.mongoKdaResults();
 
         const itens = await(collection.find().toArray());
 
         const result = itens.map(item => ({
-            id: item._id,
+            id: item.id,
             nickName: item.nickName,
             gameName: item.gameName,
             puuid: item.puuid,

@@ -1,8 +1,8 @@
-import  mongoKdaResults  from '../utils/mongoKDAModel.js';
+import  mongoModel  from '../utils/mongoConnection.js';
 
 const postPartidas = async (req, res) => {
   try {
-    const { collection } = await mongoKdaResults();
+    const { collection } = await mongoModel.mongoKdaResults();
     const partidaDetails = req.body.matchDetails;
 
     const bulkUpdateOperations = [];

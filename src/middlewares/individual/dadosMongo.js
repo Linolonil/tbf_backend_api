@@ -1,28 +1,34 @@
-import mongoResults from '../../utils/mongoKDAModel.js'
-import  { ObjectId } from 'mongodb';
-
+import mongoModels from '../../utils/mongoConnection.js';
+import { ObjectId } from 'mongodb';
 
 const buscarItensMongoDB = async (req, res, next) => {
-
     try {
-     const { collection } = await mongoResults()
-     const {id} = req.body
+        const { collection } = await mongoModels.mongoResults();
+        
+        const id = req.body.id;
 
-     const jogador = await collection.find({ _id: new ObjectId(id) }).toArray();
+        if (!id) {
+            return res.status(400).json({ error: 'ID não fornecido na requisição' });
+        }
 
-     const result = jogador.map( item => ({
-        id,
-        gameName: item.gameName,
-        tagLine:item.tagLine
-     }))
+        const jogador = await collection.findOne({_id: new ObjectId(id)});
+        
+        if (!jogador) {
+            return res.status(404).json({ error: 'Jogador não encontrado' });
+        }
 
-     req.jogador = result;        
+        const result = {
+            id,
+            gameName: jogador.gameName,
+            tagLine: jogador.tagLine
+        };
 
+        req.jogador = result;
     } catch (error) {
-        console.error('Erro ao buscar contas Riot:', id);
-        res.status(500).json({ error: 'Erro ao buscar contas Riot' });    
+        console.error('Erro ao buscar contas Riot:', error);
+        return res.status(500).json({ error: 'Erro ao buscar contas Riot' });
     }
-    next()
+    next();
 };
 
 export default buscarItensMongoDB;

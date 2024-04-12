@@ -1,8 +1,8 @@
-import mongoResults from '../../utils/mongoKDAModel.js';
+import mongoModel from '../../utils/mongoConnection.js';
 
 const buscarItensMongoDB = async (req, res, next) => {
  try {
-    const { collection } = await mongoResults();
+    const { collection } = await mongoModel.mongoResults();
     
     console.info("buscando itens...!");
 
@@ -14,7 +14,7 @@ const buscarItensMongoDB = async (req, res, next) => {
     
     next();
  } catch (error) {
-    console.error('Erro ao buscar contas Riot:');
+    console.error('Erro ao buscar contas Riot:', error);
     res.status(500).json({ error: 'Erro ao buscar contas Riot' });
  }
 };

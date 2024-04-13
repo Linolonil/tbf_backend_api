@@ -4,6 +4,6 @@ const router = express.Router();
 import buscaInfoController from '../controllers/buscarInfoController.js';
 
 router.get("/buscarInfo", buscaInfoController.buscarInfoCriminosos)
-router.get("/buscarInfoKda", buscaInfoController.buscarInfoKda)
+router.get("/buscarInfoKda/:id?", buscaInfoController.buscarInfoKda)
 
 export default router;

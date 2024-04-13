@@ -22,26 +22,57 @@ const buscarInfoCriminosos = async(req, res) =>{
     }
 
 }
-const buscarInfoKda = async(req, res) =>{
+const buscarInfoKda = async (req, res) => {
     try {
-        const {collection} = await mongoModel.mongoKdaResults();
+        const { collection } = await mongoModel.mongoKdaResults();
+        let result;
 
-        const itens = await(collection.find().toArray());
+        if (req.params.id) {
+            const item = await collection.findOne({ id: req.params.id });
+            if (Array.isArray(item.partidas)) {
+                result = {
+                    id: item.id,
+                    nickName: item.nickName,
+                    gameName: item.gameName,
+                    puuid: item.puuid,
+                    partidas: item.partidas.map(partida => ({
+                        matchId: partida.matchId,
+                        gameStartTime: partida.gameStartTime,
+                        kda: partida.kda
+                    }))
+                };
+            } else {
+                result = {
+                    id: item.id,
+                    nickName: item.nickName,
+                    gameName: item.gameName,
+                    puuid: item.puuid,
+                    partidas: [] 
+                };
+            }
+        } else {
+            const itens = await collection.find().toArray();
+            result = itens.map(item => ({
+                id: item.id,
+                nickName: item.nickName,
+                gameName: item.gameName,
+                puuid: item.puuid,
+                partidas: Array.isArray(item.partidas) ? item.partidas.map(partida => ({
+                    matchId: partida.matchId,
+                    gameStartTime: partida.gameStartTime,
+                    kda: partida.kda
+                })) : [] 
+            }));
+        }
 
-        const result = itens.map(item => ({
-            id: item.id,
-            nickName: item.nickName,
-            gameName: item.gameName,
-            puuid: item.puuid,
-            partidas: [item.partidas.map((partidas)=> partidas)],
-        }))
-
-        res.json(result)
+        res.json(result);
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        res.status(500).json({ error: 'Erro ao buscar informações KDA.' });
     }
+};
 
-}
+
 
 export default {
     buscarInfoCriminosos,

@@ -1,4 +1,5 @@
 import  mongoModels  from '../utils/mongoConnection.js';
+import axios from 'axios';
 
 const postPartidas = async (req, res) =>{
     try {
@@ -47,7 +48,23 @@ const getPartidas = async (req, res) => {
     }
 };
 
+const getInfoIndividual = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const response = await axios.get(`https://tbf-backend-api.onrender.com/individual/detalhes-partidas/buscar/${id}`);
+    const data = response.data;
+
+    const segundaResponse = await axios.post('https://tbf-backend-api.onrender.com/individual/detalhes-partidas/criar', data);
+
+    res.json(segundaResponse.data);
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao realizar a solicitação para criar informações.', error: error.message });
+  }
+};
+
 export default {
+  getInfoIndividual,
     getPartidas,
     postPartidas
 };

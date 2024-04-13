@@ -5,7 +5,7 @@ const buscarItensMongoDB = async (req, res, next) => {
     try {
         const { collection } = await mongoModels.mongoResults();
         
-        const id = req.body.id;
+        const id = req.params.id;
 
         if (!id) {
             return res.status(400).json({ error: 'ID não fornecido na requisição' });
